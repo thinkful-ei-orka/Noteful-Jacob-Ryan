@@ -128,7 +128,7 @@ export default class App extends React.Component {
     },
     selected: {
       folder: 'b0715efe-ffaf-11e8-8eb2-f2801f1b9fd1',
-      note: 'current note'
+      note: 'cbc787a0-ffaf-11e8-8eb2-f2801f1b9fd1'
     },
 
   }
@@ -155,7 +155,6 @@ folderNav = () => {
         <button type="button" className="back-button">
           Go Back
         </button>
-        <p>{this.state.selected.folder}</p>
       </section>
     )
   }
@@ -193,8 +192,10 @@ folderNav = () => {
         data={this.state}
       />
       <Note 
-      navbar={this.noteNav}
-      data={this.state}/>
+        navbar={this.noteNav}
+        data={this.state}
+        note={this.noteItem}
+      />
     </div>
   )}
 }
