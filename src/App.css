@@ -1,5 +1,25 @@
-.folder-nav-item {
+* {
+    box-sizing: border-box;
+    margin: 0px;
     list-style-type: none;
+}
+
+body {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.folder-nav-item {
     padding: 20px;
     border: 1px solid black;
+}
+
+.nav-list {
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+}
+.folder-nav-item {
+    width: 50%;
+    margin-right: 0px;
 }
