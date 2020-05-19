@@ -1,5 +1,7 @@
 import React from 'react';
 import './App.css';
+import {Route} from 'react-router';
+import {Link} from 'react-router-dom';
 import Main from './components/Main/Main'
 import Folder from './components/Folder/Folder'
 import Note from './components/Note/Note'
@@ -126,12 +128,13 @@ export default class App extends React.Component {
         }
       ]
     },
-    selected: {
-      folder: 'b0715efe-ffaf-11e8-8eb2-f2801f1b9fd1',
-      note: 'cbc787a0-ffaf-11e8-8eb2-f2801f1b9fd1'
-    },
 
   }
+
+  handleFolderClicked = (folder) => {
+    console.log(folder)
+
+  } 
 
 
 
@@ -141,7 +144,7 @@ folderNav = () => {
       <ul className="nav-list">
         {this.state.store.folders.map((folder,index) => {
           return(
-            <li key={folder + index}className="folder-nav-item">{folder.name}</li>)})
+            <li key={folder + index}className="folder-nav-item"><Link to={`/folder/${folder.id}`}>{folder.name}</Link></li>)})
         }
       </ul>
       <button type="button">Add folder</button>
@@ -160,9 +163,8 @@ folderNav = () => {
   }
 
   noteItem = (note,index) => {
-
     return (                        
-    <li key={note.name + index}>
+    <li key={note.name + index}className="note-item"><Link to={`/note/${note.id}`}>{note.name}</Link>
       <h3>{note.name}</h3>
       <p>Date modified: {note.modified}</p>
       <button type="button">Delete</button>
@@ -181,6 +183,30 @@ folderNav = () => {
     //Dynamic route note 
     <div>
       <Header />
+      <Route path="/" render={(routerProps) => <Main 
+        navbar={this.folderNav}
+        note={this.noteItem}
+        data={this.state}
+      />} exact />
+      <Route path="/folder/:folderid" render={(routerProps) => {
+        console.log(routerProps.match.params.folderid)
+        return <Folder
+        navbar={this.folderNav}
+        note={this.noteItem}
+        data={this.state}
+        currentFolder={routerProps.match.params.folderid}
+      />}} exact />
+      <Route path="/note/:noteid" render={(routerProps) => {
+        console.log(routerProps)
+        return <Note
+        navbar={this.noteNav}
+        note={this.noteItem}
+        data={this.state}
+        //currentFolder={this.state.notes.folderId}
+        currentNoteId={routerProps.match.params.noteid}
+      />}} exact />
+      {/* <Route path="/folder/<with-a-folder-id-here>" component={Folder} exact />
+      <Route path="/note/<with-a-note-id-here>" component={Note} exact/>
       <Main 
         navbar={this.folderNav}
         note={this.noteItem}
@@ -195,9 +221,7 @@ folderNav = () => {
         navbar={this.noteNav}
         data={this.state}
         note={this.noteItem}
-      />
+      /> */}
     </div>
   )}
 }
-
-

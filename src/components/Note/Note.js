@@ -1,15 +1,14 @@
 import React from 'react'
 
 export default function Note(props) {
-    let currentFolder = props.data.store.folders.find
-    (folder => folder.id ===props.data.selected.folder)
-    let currentNote = props.data.store.notes.find(note => note.id === props.data.selected.note)
+    //let currentFolder = 
+    let currentNote = props.currentNoteId
     console.log(currentNote)
     return (
         <div>
             <h1>Note Section</h1>
             {props.navbar()}
-            <p>{currentFolder.name}</p>
+            {/* <p>{currentFolder.name}</p> */}
             {props.note(currentNote,currentNote.id)}
         </div>
     )
