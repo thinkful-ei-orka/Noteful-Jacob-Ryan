@@ -49,12 +49,16 @@ folderNav = () => {
     )
   }
 
-  noteNav = () => {
+  noteNav = (currentNote) => {
+    let currentFolderId = currentNote.folderId
     return (
       <section>
-        <button type="button" className="back-button">
+        <Link to={`/folder/${currentFolderId}`}>
+          <button type="button" className="back-button">
           Go Back
-        </button>
+          </button> 
+        </Link>
+        
       </section>
     )
   }

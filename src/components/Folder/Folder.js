@@ -8,7 +8,7 @@ export default function Folder (props) {
             <h1>Folder Section</h1>
             {props.navbar(currentFolder)}
             <ul>
-                 {props.data.store.notes.map((note,index) => {
+                 {props.data.notes.map((note,index) => {
                     if(note.folderId === currentFolder) {
                         return (
                             props.note(note,index)

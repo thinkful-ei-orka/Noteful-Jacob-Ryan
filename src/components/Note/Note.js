@@ -7,7 +7,7 @@ export default function Note(props) {
     return (
         <div>
             <h1>Note Section</h1>
-            {props.navbar()}
+            {props.navbar(currentNote)}
             {/* <p>{currentFolder.name}</p> */}
             {props.note(currentNote,currentNote.id)}
         </div>
