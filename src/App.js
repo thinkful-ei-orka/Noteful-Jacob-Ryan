@@ -49,12 +49,11 @@ folderNav = () => {
     )
   }
 
-  noteNav = () => {
+  noteNav = (folder) => {
+    console.log(folder)
     return (
       <section>
-        <button type="button" className="back-button">
-          Go Back
-        </button>
+        <Link to={`/folder/${folder}`}><button type="button" className="back-button">Go Back</button></Link>
       </section>
     )
   }
@@ -118,23 +117,6 @@ folderNav = () => {
         //currentFolder={this.state.notes.folderId}
         currentNoteId={routerProps.match.params.noteid}
       />}} exact />
-      {/* <Route path="/folder/<with-a-folder-id-here>" component={Folder} exact />
-      <Route path="/note/<with-a-note-id-here>" component={Note} exact/>
-      <Main 
-        navbar={this.folderNav}
-        note={this.noteItem}
-        data={this.state}
-      />
-      <Folder
-        navbar={this.folderNav}
-        note={this.noteItem}
-        data={this.state}
-      />
-      <Note 
-        navbar={this.noteNav}
-        data={this.state}
-        note={this.noteItem}
-      /> */}
     </div>
   )}
 }
