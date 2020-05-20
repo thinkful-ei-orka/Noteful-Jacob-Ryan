@@ -1,17 +1,20 @@
 import React from 'react'
+import AppContext from '../../AppContext'
 
-export default function Folder (props) {
-    let currentFolder = props.currentFolder
+export default class Folder extends React.Component {
+    static contextType = AppContext;
+    render() {
+    let currentFolder = this.props.currentFolder
     console.log(currentFolder)
     return (
         <div>
             <h1>Folder Section</h1>
-            {props.navbar(currentFolder)}
+            {this.props.navbar(currentFolder)}
             <ul>
-                 {props.data.notes.map((note,index) => {
+                 {this.props.data.notes.map((note,index) => {
                     if(note.folderId === currentFolder) {
                         return (
-                            props.note(note,index)
+                            this.props.note(note,index)
                         )
                     }
                     return (
@@ -22,4 +25,4 @@ export default function Folder (props) {
             </ul>
         </div>
     )
-}
+}}

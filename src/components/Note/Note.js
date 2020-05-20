@@ -1,15 +1,24 @@
 import React from 'react'
+import AppContext from '../../AppContext'
 
-export default function Note(props) {
+export default class  Note extends React.Component {
     //let currentFolder = 
-    let currentNote = props.data.notes.find(note => note.id === props.currentNoteId)
+    static contextType = AppContext;
+    render() {
+    const {notes} = this.context
+    console.log(notes)
+    if (notes.length === 0) {
+        return <p>Loading...</p>
+    }
+    let currentNote = notes.find(note => note.id === this.props.currentNoteId)
     console.log(currentNote)
     return (
         <div>
             <h1>Note Section</h1>
-            {props.navbar(currentNote)}
+            {this.props.navbar(currentNote)}
             {/* <p>{currentFolder.name}</p> */}
-            {props.note(currentNote,currentNote.id)}
+            {this.props.note(currentNote,currentNote.id)}
         </div>
     )
+    }
 }

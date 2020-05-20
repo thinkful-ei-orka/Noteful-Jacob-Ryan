@@ -6,6 +6,7 @@ import Main from './components/Main/Main'
 import Folder from './components/Folder/Folder'
 import Note from './components/Note/Note'
 import Header from './components/Header/Header'
+import AppContext from './AppContext'
 
 const baseurl = 'http://localhost:9090'
 export default class App extends React.Component {
@@ -23,7 +24,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // fake date loading from API call
-    Promise.all([
+    return Promise.all([
         fetch(`${baseurl}/folders`),
         fetch(`${baseurl}/notes`)
     ])
@@ -33,7 +34,17 @@ export default class App extends React.Component {
         })
 
 }
+
+// handleDeleteClicked(note) {
+//   return fetch(`${baseurl}/notes/${note.id}`, {
+//     method: 'DELETE',
+//     headers: {
+//       'content-type': 'application/json'
+//     },
+//     })
+// }
  
+
 
 folderNav = () => {
   return (
@@ -72,7 +83,7 @@ folderNav = () => {
       <h3>{note.name}</h3>
       <p>Date modified: {note.modified}</p>
       
-      <button type="button">Delete</button>
+      <button type="button" onClick={() => this.handleDeleteClicked}>Delete</button>
     </li>
 
 
@@ -98,6 +109,10 @@ folderNav = () => {
     //Main route shows when path is / shows full list of notes, and a folder sidebar
     //Folder route shows when path is /folder/<folder-id>.  Main section display only notes in the main folder and sidebar highlights current folder selected
     //Dynamic route note 
+    <AppContext.Provider value = {{
+      folders: this.state.folders,
+      notes: this.state.notes
+    }}>
     <div>
       <Header />
       <Route path="/" render={(routerProps) => <Main 
@@ -118,7 +133,6 @@ folderNav = () => {
         return <Note
         navbar={this.noteNav}
         note={this.expandedNote}
-        data={this.state}
         //currentFolder={this.state.notes.folderId}
         currentNoteId={routerProps.match.params.noteid}
       />}} exact />
@@ -140,5 +154,6 @@ folderNav = () => {
         note={this.noteItem}
       /> */}
     </div>
+    </AppContext.Provider>
   )}
 }
