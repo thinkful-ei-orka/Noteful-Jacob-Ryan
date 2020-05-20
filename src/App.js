@@ -163,15 +163,31 @@ folderNav = () => {
   }
 
   noteItem = (note,index) => {
+    //If the url === '.../note/
+      //render the content
+    //else we don't want to render content
     return (                        
     <li key={note.name + index}className="note-item"><Link to={`/note/${note.id}`}>{note.name}</Link>
       <h3>{note.name}</h3>
       <p>Date modified: {note.modified}</p>
+      
       <button type="button">Delete</button>
     </li>
 
 
     )}
+
+    expandedNote = (note,index) => {
+      return (                        
+      <li key={note.name + index}className="note-item"><Link to={`/note/${note.id}`}>{note.name}</Link>
+        <h3>{note.name}</h3>
+        <p>Date modified: {note.modified}</p>
+      <p>{note.content}</p>
+        <button type="button">Delete</button>
+      </li>
+  
+  
+      )}
   
   
   render() {
@@ -200,7 +216,7 @@ folderNav = () => {
         console.log(routerProps)
         return <Note
         navbar={this.noteNav}
-        note={this.noteItem}
+        note={this.expandedNote}
         data={this.state}
         //currentFolder={this.state.notes.folderId}
         currentNoteId={routerProps.match.params.noteid}

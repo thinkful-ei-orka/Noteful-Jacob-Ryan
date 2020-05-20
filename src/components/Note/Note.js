@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Note(props) {
     //let currentFolder = 
-    let currentNote = props.currentNoteId
+    let currentNote = props.data.store.notes.find(note => note.id === props.currentNoteId)
     console.log(currentNote)
     return (
         <div>
