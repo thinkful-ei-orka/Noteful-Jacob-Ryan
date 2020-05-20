@@ -35,14 +35,22 @@ export default class App extends React.Component {
 
 }
 
-// handleDeleteClicked(note) {
-//   return fetch(`${baseurl}/notes/${note.id}`, {
-//     method: 'DELETE',
-//     headers: {
-//       'content-type': 'application/json'
-//     },
-//     })
-// }
+handleDeleteClicked(note) {
+  return fetch(`${baseurl}/notes/${note.id}`, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json'
+    },
+    })
+    .then(filteredState => {
+      return this.state.notes.filter(noteItem => noteItem.id !== note.id)
+    })
+    .then(newNotes => {
+      this.setState({
+        notes: newNotes
+      })
+    })
+}
  
 
 
@@ -75,15 +83,12 @@ folderNav = () => {
   }
 
   noteItem = (note,index) => {
-    //If the url === '.../note/
-      //render the content
-    //else we don't want to render content
     return (                        
     <li key={note.name + index}className="note-item"><Link to={`/note/${note.id}`}>{note.name}</Link>
       <h3>{note.name}</h3>
       <p>Date modified: {note.modified}</p>
       
-      <button type="button" onClick={() => this.handleDeleteClicked}>Delete</button>
+      <Link to='/'><button type="button" onClick={() => this.handleDeleteClicked(note)}>Delete</button></Link>
     </li>
 
 
@@ -95,7 +100,7 @@ folderNav = () => {
         <h3>{note.name}</h3>
         <p>Date modified: {note.modified}</p>
       <p>{note.content}</p>
-        <button type="button">Delete</button>
+      <Link to='/'><button type="button" onClick={() => this.handleDeleteClicked(note)}>Delete</button></Link>
       </li>
   
   

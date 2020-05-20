@@ -1,18 +1,21 @@
 import React from 'react'
+import AppContext from '../../AppContext'
 
 
-
-export default function Home(props) {
-    console.log(props.data.notes)
-    return (
-        <div>
-            <h1>Main Section</h1>
-            {props.navbar()}
-            <ul>
-                {props.data.notes.map((note,index) => {
-                    return props.note(note,index)
-                })}
-            </ul>
-        </div>
-    );
+export default class Home extends React.Component {
+    static contextType = AppContext;
+    render() {
+        const {notes} = this.context
+        return (
+            <div>
+                <h1>Main Section</h1>
+                {this.props.navbar()}
+                <ul>
+                    {notes.map((note,index) => {
+                        return this.props.note(note,index)
+                    })}
+                </ul>
+            </div>
+        );
+    }
 }
